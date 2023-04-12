@@ -14,6 +14,7 @@ build:
 	$(MAKE) build-linux-x64
 	$(MAKE) build-osx-x64
 	$(MAKE) build-osx-arm64
+	echo "End of 'make build'"
 
 .PHONY:	clean-gui-win-x64 clean-win-x64 clean-linux-x64 clean-osx-x64 clean-osx-arm64
 clean:	clean-gui-win-x64 clean-win-x64 clean-linux-x64 clean-osx-x64 clean-osx-arm64
