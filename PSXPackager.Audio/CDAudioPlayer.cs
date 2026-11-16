@@ -63,7 +63,12 @@ namespace PSXPackager.Audio
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            int bytesRead = sourceProvider.Read(buffer, offset, count);
+            return Read(buffer.AsSpan(offset, count));
+        }
+
+        public override int Read(Span<byte> buffer)
+        {
+            int bytesRead = sourceProvider.Read(buffer);
             totalBytesRead += bytesRead;
             return bytesRead;
         }
@@ -89,9 +94,8 @@ namespace PSXPackager.Audio
         public CDAudioPlayer()
         {
             var waveFormat = new WaveFormat(44100, 16, 2);
-            _buffer = new BufferedWaveProvider(waveFormat)
+            _buffer = new BufferedWaveProvider(waveFormat, TimeSpan.FromSeconds(10))
             {
-                BufferDuration = TimeSpan.FromSeconds(10),
                 DiscardOnBufferOverflow = false
             };
 
